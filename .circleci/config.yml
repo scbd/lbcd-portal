@@ -15,8 +15,9 @@ _run:
   testImage: &testImage
     name: Test docker image 
     command:  |
+      docker run --rm output npm test
       docker run --name lbcd -d -p 8000:8000 output;sleep 10;
-      docker exec lbcd curl --retry 10 --retry-delay 5 -v http://localhost:8000/
+      docker exec lbcd wget -q -O /dev/null http://127.0.0.1:8000/lbcd/
 
 jobs:
   build:
