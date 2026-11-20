@@ -1,13 +1,19 @@
 {
   "name": "lbcd-portal",
+  "private": true,
   "dependencies": {
-    "bower": "1.8.8",
-    "express": "4.14.0",
-    "http-proxy": "1.15.2"
+    "express": "^4.22.3",
+    "http-proxy": "^1.18.1"
   },
-  "engine": "node >= 6.0.0",
+  "devDependencies": {
+    "bower": "^1.8.14"
+  },
+  "engines": {
+    "node": "^22.23.4 || ^24.22.1 || >=26.12.1"
+  },
   "scripts": {
-    "postinstall": "./node_modules/.bin/bower install --config.interactive=false --allow-root",
-    "start": "node server"
+    "postinstall": "bower install --config.interactive=false --allow-root",
+    "start": "node server",
+    "test": "node --test test/*.test.js"
   }
 }
