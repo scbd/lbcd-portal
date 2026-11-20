@@ -18,9 +18,11 @@ app.use('/favicon.png', express.static(__dirname + '/lbcd/app/template/favicon.p
 
 var proxy = httpProxy.createProxyServer({});
 
-app.get   ('/lbcd/app/*', function(req, res) { res.send('404', 404); } );
-app.get   ('/public/*',   function(req, res) { res.send('404', 404); } );
-app.all   ('/api/*',      function(req, res) { proxy.web(req, res, { target: 'https://api.cbd.int', secure: false } ); } );
+var apiUrl = process.env.API_URL || 'https://api.cbd.int';
+
+app.get   ('/lbcd/app/*', function(req, res) { res.status(404).send('404'); } );
+app.get   ('/public/*',   function(req, res) { res.status(404).send('404'); } );
+app.all   ('/api/*',      function(req, res) { proxy.web(req, res, { target: apiUrl, changeOrigin: true, secure: false } ); } );
 
 // Configure index.html
 
